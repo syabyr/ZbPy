@@ -24,11 +24,12 @@ speed = 115200
 dev = serial.Serial(device, speed)
 
 # send the commands to reboot and load the NIC firmware
+# ctrl+c = "0x03"
 dev.write(b"\x03\x03\x03")
 time.sleep(0.2)
 dev.write(b"reset()\r") # why \r?
 time.sleep(0.5)
-dev.write(b"import NIC\r")
+dev.write(b"import ZbPy.NIC\r")
 
 #stderr.write(b"reset\n")
 
@@ -83,7 +84,7 @@ def process_serial():
 	if c == b'\r':
 		return
 
-	#stderr.write(c)
+	#stderr.write(c.decode("utf-8"))
 
 	if (b'0' <= c and c <= b'9') \
 	or (b'a' <= c and c <= b'f'):

@@ -12,12 +12,17 @@ from binascii import unhexlify, hexlify
 from struct import unpack
 
 Radio.init()
+Radio.promiscuous(1)
+Radio.rx()
+Radio.channel(15)
 
 def loop():
 	pan_set = False
 
 	incoming = ''
 	machine.zrepl(False)
+
+	Radio.channel(15);
 
 	while True:
 		pkt = Radio.rx()
@@ -67,3 +72,4 @@ def loop():
 			x = None
 			gc.collect()
 
+loop()
